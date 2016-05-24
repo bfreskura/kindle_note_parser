@@ -1,6 +1,6 @@
 import re
 import os
-from model import book
+from model import book, edit_type
 
 """
 Parses raw kindle highlights document
@@ -35,6 +35,9 @@ perspiration, the perspiration was the process of incrementally
 The 5 Elements of Effective Thinking (Burger, Edward B.;Starbird, Michael)
 - Your Bookmark on Location 897 | Added on Wednesday, August 12, 2015 7:33:04 AM
 
+
+
+Notice that you have to add a blank line to the start of document
 """
 
 
@@ -50,7 +53,7 @@ class RawParser:
         raise NotImplementedError
 
 
-class KindlePapewhite5Parser(RawParser):
+class KindlePaperwhite5Parser(RawParser):
     """
     Parser implementation for Kindle Paperwhite 5.th generation
     """
@@ -73,10 +76,38 @@ class KindlePapewhite5Parser(RawParser):
             # Check if this type of books exists
             if content[1] not in books_created:
                 book_new = book.Book()
+                book_new.book_name = content[1]
+                self.create_edit(content[2], content[4], book_new)
+                # Save data to dictionary
                 books_created[content[1]] = book_new
-                print(content[1])
             else:
+                # Update book
                 book_old = books_created[content[1]]
+                self.create_edit(content[2], content[4], book_old)
+                books_created[content[1]] = book_old
+
+    def create_edit(self, meta, content, book):
+        """
+        Depending on the string, it will create appropriate
+        EditType object and add it to the book list
+
+        content param will be an empty string for bookmarks
+
+        :param meta Meta part of the string (string where location and date are located)
+        :param content Actual content of the string (Note and highlight content)
+        """
+        meta_words = meta.split(" ")
+        if meta_words[2].lower() == "bookmark":
+            edit = edit_type.BookmarkType(meta)
+            book.bookmarks_list.append(edit)
+
+        elif meta_words[2].lower() == "highlight":
+            edit = edit_type.HighlightType(meta, content)
+            book.highlights_list.append(edit)
+
+        elif meta_words[2].lower() == "note":
+            edit = edit_type.HighlightType(meta, content)
+            book.highlights_list.append(edit)
 
 
 class RawParserContext:

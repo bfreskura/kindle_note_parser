@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 
 class EditType:
@@ -45,9 +45,24 @@ class HighlightType(EditType):
         pass
 
     def parse_edit_date(self, data):
-        pass
+        """
+        Example of input:
+        - Your Highlight on Location 6778-6779 | Added on Monday, August 17, 2015 7:38:34 AM
+
+        :param data:
+        :return:
+        """
+        date_part = data.split("|")
+        return datetime.strptime(date_part[1], " Added on %A, %B %d, %Y %I:%M:%S %p")
 
     def parse_edit_location(self, data):
+        """
+        Example of input:
+        - Your Highlight on Location 6778-6779 | Added on Monday, August 17, 2015 7:38:34 AM
+
+        :param data:
+        :return:
+        """
         pass
 
 
@@ -68,9 +83,24 @@ class NoteType(EditType):
         pass
 
     def parse_edit_date(self, data):
-        pass
+        """
+        Example of input:
+        - Your Note on Location 4555 | Added on Wednesday, February 24, 2016 8:28:14 AM
+
+        :param data:
+        :return:
+        """
+        date_part = data.split("|")
+        return datetime.strptime(date_part[1], " Added on %A, %B %d, %Y %I:%M:%S %p")
 
     def parse_edit_location(self, data):
+        """
+        Example of input:
+        - Your Note on Location 4555 | Added on Wednesday, February 24, 2016 8:28:14 AM
+
+        :param data:
+        :return:
+        """
         pass
 
 
@@ -90,7 +120,22 @@ class BookmarkType(EditType):
         pass
 
     def parse_edit_date(self, data):
-        pass
+        """
+        Example of input:
+        - Your Bookmark on Location 3021 | Added on Wednesday, February 17, 2016 1:49:13 PM
+
+        :param data:
+        :return:
+        """
+        date_part = data.split("|")
+        return datetime.strptime(date_part[1], " Added on %A, %B %d, %Y %I:%M:%S %p")
 
     def parse_edit_location(self, data):
+        """
+        Example of input:
+        - Your Bookmark on Location 3021 | Added on Wednesday, February 17, 2016 1:49:13 PM
+
+        :param data:
+        :return:
+        """
         pass
