@@ -115,4 +115,4 @@ class RawParserContext:
         self.strategy = parse_strategy
 
     def parse_raw(self, filename):
-        self.strategy.parse_raw(filename)
+        return self.strategy.parse_raw(filename)

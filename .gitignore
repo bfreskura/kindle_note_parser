@@ -1,6 +1,12 @@
 # Raw text data
 raw/*
 
+*.tex
+*.aux
+*.log
+*.pdf
+*.md
+*.toc
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
