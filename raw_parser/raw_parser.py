@@ -1,5 +1,3 @@
-import re
-import os
 from model import book, edit_type
 
 """
@@ -85,6 +83,8 @@ class KindlePaperwhite5Parser(RawParser):
                 book_old = books_created[content[1]]
                 self.create_edit(content[2], content[4], book_old)
                 books_created[content[1]] = book_old
+
+        return books_created
 
     def create_edit(self, meta, content, book):
         """

@@ -63,7 +63,7 @@ class HighlightType(EditType):
         :param data:
         :return:
         """
-        pass
+        return data.split("|")[0].split(" ")[5]
 
 
 class NoteType(EditType):
@@ -101,7 +101,7 @@ class NoteType(EditType):
         :param data:
         :return:
         """
-        pass
+        return data.split("|")[0].split(" ")[5]
 
 
 class BookmarkType(EditType):
@@ -138,4 +138,4 @@ class BookmarkType(EditType):
         :param data:
         :return:
         """
-        pass
+        return data.split("|")[0].split(" ")[5]
