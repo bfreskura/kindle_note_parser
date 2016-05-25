@@ -50,7 +50,9 @@ class ExportTex(Export):
                     file.write("\\begin{itemize}\n")
 
                     for highlight in book.highlights_list:
-                        file.write("\\item {" + self.escape_special(str(highlight.content)) + "}\n")
+                        file.write(
+                            "\\item {" + self.escape_special(
+                                str(highlight.content)) + " (\\textit{Location " + highlight.location + "})}\n")
 
                     file.write("\\end{itemize}\n")
 

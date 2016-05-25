@@ -64,6 +64,9 @@ you would like to export, and in what format.
 After the program has finished, exported files will be located in the
 *exported_files* directory.
 
+Start and finish day of reading are dates when the first and the last
+bookmarks in the book were made.
+
 ## Requirements
 The only requirements is Python3 (this was tested on Python 3.5.0)
 
