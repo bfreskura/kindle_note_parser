@@ -41,6 +41,10 @@ The 5 Elements of Effective Thinking (Burger, Edward B.;Starbird, Michael)
 - Your Bookmark on Location 897 | Added on Wednesday, August 12, 2015 7:33:04 AM
 ```
 
+### Structure of the Kindle file
+Pay attention to the beginning, and the end of the file. Number of empty rows
+must be equal. Take a look at the *raw/my_clippings.txt* example.
+
 ## Which export formats does it support?
 1. Tex (Latex)
   * Given template .tex file, it will export data in the latex file which can be
@@ -61,9 +65,17 @@ python main.py [path_to_the_kindle_file]
 After you run it, it will scan the document and interactively ask you what data
 you would like to export, and in what format.
 
+### Template files
+Latex and Markdown format **must have their template files specified**. Template
+files must be inside the *templates* directory. Program will only ask you for
+the file name of the template, after which it will scan the templates directory
+for the given file name.
+
+### Exported files
 After the program has finished, exported files will be located in the
 *exported_files* directory.
 
+### Dates
 Start and finish day of reading are dates when the first and the last
 bookmarks in the book were made.
 

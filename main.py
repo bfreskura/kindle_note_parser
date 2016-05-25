@@ -18,19 +18,24 @@ def choose_export(export_index):
 
     if export_index == 0:
         # TEX
-        template = input("Enter Template name: ")
+        template = input("Enter Latex Template name: ")
         if not template:
-            template = "template1.txt"
+            template = "template_latex1.txt"
 
         return exporter.ExportTex(author_name=author,
                                   template_path=os.path.join(TEMPLATES, template))
 
     elif export_index == 1:
         # Markdown
-        pass
+        template = input("Enter Markdown Template name: ")
+        if not template:
+            template = "template_markdown1.txt"
+
+        return exporter.ExportMarkdown(author_name=author,
+                                       template_path=os.path.join(TEMPLATES, template))
     else:
         # Plain Text
-        pass
+        return exporter.ExportPlain(author_name=author)
 
 
 parser = raw_parser.KindlePaperwhite5Parser()
@@ -51,7 +56,6 @@ while int(user_input) < 0 or int(user_input) > len(books) - 1:
     print("Invalid number given.")
     user_input = input("Enter number: ")
 book = next(v for i, v in enumerate(books.keys()) if i == int(user_input))
-print(books[book].get_start_and_end_reading_dates())
 
 # Ask for export format
 print("Choose your export format\n")

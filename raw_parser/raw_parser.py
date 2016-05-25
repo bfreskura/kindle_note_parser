@@ -89,10 +89,11 @@ class KindlePaperwhite5Parser(RawParser):
     def create_edit(self, meta, content, book):
         """
         Depending on the string, it will create appropriate
-        EditType object and add it to the book list
+        EditType object and append to the list in the Book class object
 
         content param will be an empty string for bookmarks
 
+        :param book: Book object
         :param meta Meta part of the string (string where location and date are located)
         :param content Actual content of the string (Note and highlight content)
         """

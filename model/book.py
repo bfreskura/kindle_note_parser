@@ -32,6 +32,10 @@ class Book:
         return len(self.notes_list)
 
     def get_start_and_end_reading_dates(self):
+        """
+        Extracts first and last bookmark date. Dates are sorted in chronological order and then extracted.
+        :return: First and last date from the bookmark list
+        """
         dates = []
         [dates.append(item.date) for item in self.bookmarks_list]
         dates.sort()
