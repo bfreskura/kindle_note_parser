@@ -1,4 +1,4 @@
-# Kindle Highlights extractor
+# Kindle Data Exporter
 
 ## What is this sorcery???
 It's a small script written in Python which exports highlights, bookmarks
@@ -66,3 +66,8 @@ After the program has finished, exported files will be located in the
 
 ## Requirements
 The only requirements is Python3 (this was tested on Python 3.5.0)
+
+## Versions of Kindle devices supported
+The script was tested on Kindle Paperwhite generation 5. I don't know how other versions of Kindle 
+devices save this sort of data (I assume it's not very different from this one), but feel free to
+email me if you find some differences on other Kindle devices.
