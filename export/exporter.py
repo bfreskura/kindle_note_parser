@@ -69,6 +69,10 @@ class ExportTex(Export):
 
 
 class ExportPlain(Export):
+    """
+    Exports data into a txt format
+    """
+
     def __init__(self, author_name):
         """
         Creates list of lines from the template file
@@ -82,6 +86,8 @@ class ExportPlain(Export):
         with open(os.path.join(folder_path, book.book_name + ".txt"), "w") as file:
             file.write("Book name: " + book.book_name + '\n\n')
 
+            file.write("Notes Author: " + self.author + '\n\n')
+
             file.write("Started reading: " + str(start.date()) + '\n')
             file.write("Finished reading: " + str(end.date()) + '\n\n')
             file.write("Book notes\n\n")
@@ -91,6 +97,10 @@ class ExportPlain(Export):
 
 
 class ExportMarkdown(Export):
+    """
+    Exports data into a markdown format
+    """
+
     def __init__(self, template_path, author_name):
         """
         Creates list of lines from the template file
