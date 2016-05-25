@@ -30,3 +30,10 @@ class Book:
         :return: Number of notes
         """
         return len(self.notes_list)
+
+    def get_start_and_end_reading_dates(self):
+        dates = []
+        [dates.append(item.date) for item in self.bookmarks_list]
+        dates.sort()
+
+        return dates[0], dates[-1]

@@ -1,4 +1,5 @@
 import os
+import re
 
 
 class Export:
@@ -43,16 +44,37 @@ class ExportTex(Export):
 
                 elif template.startswith("#"):
                     # Insert content
+                    if not book.highlights_list:
+                        continue
 
                     file.write("\\begin{itemize}\n")
 
                     for highlight in book.highlights_list:
-                        file.write("\\item {" + str(highlight.content) + "}\n")
+                        file.write("\\item {" + self.escape_special(str(highlight.content)) + "}\n")
+
+                    file.write("\\end{itemize}\n")
+
+                elif template.startswith("$"):
+                    file.write("\\begin{itemize}\n")
+
+                    start, end = book.get_start_and_end_reading_dates()
+                    file.write("\\item{Started reading book on: " + str(start.date()) + "}\n")
+                    file.write("\\item{Finished reading book on: " + str(end.date()) + "}\n")
 
                     file.write("\\end{itemize}\n")
 
                 else:
                     file.write(template)
+
+    def escape_special(self, string):
+        """
+        Escape special characters in tex format
+        :return:
+        """
+        replacement = {"{", "}", "$", "#"}
+        for rep in replacement:
+            string = string.replace(rep, "\\" + rep)
+        return string
 
 
 class ExportMarkdown(Export):

@@ -8,10 +8,14 @@
 
 \begin{document}
 \maketitle
-\tableofcontents
+
 \newpage
+\tableofcontents
 
 \section{About the book}
+
+\subsection{Start and end of reading}
+$ Date_insertion
 
 \subsection{Summary}
 

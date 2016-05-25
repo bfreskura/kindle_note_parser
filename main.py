@@ -5,6 +5,7 @@ import os
 from raw_parser import raw_parser
 from constants import EXPORT_FORMATS, TEMPLATES, EXPORTED_FILES
 from export import exporter
+import collections
 
 
 def choose_export(export_index):
@@ -32,16 +33,13 @@ def choose_export(export_index):
         pass
 
 
-# raw_data_file = os.path.join(RAW_DATA, "my_clippings.txt")
-
 parser = raw_parser.KindlePaperwhite5Parser()
 parser_context = raw_parser.RawParserContext(parser)
-
 parser = argparse.ArgumentParser()
+
 parser.add_argument("input_log", help="Path of the file where kindle stores all notes, highlights and bookmarks")
 args = parser.parse_args()
-
-books = parser_context.parse_raw(args.input_log)
+books = collections.OrderedDict(sorted(parser_context.parse_raw(args.input_log).items()))
 
 # List all books
 print("Enter one number from the list:\n")
@@ -53,6 +51,7 @@ while int(user_input) < 0 or int(user_input) > len(books) - 1:
     print("Invalid number given.")
     user_input = input("Enter number: ")
 book = next(v for i, v in enumerate(books.keys()) if i == int(user_input))
+print(books[book].get_start_and_end_reading_dates())
 
 # Ask for export format
 print("Choose your export format\n")
@@ -65,4 +64,5 @@ while int(user_input) < 0 or int(user_input) > len(EXPORT_FORMATS) - 1:
     user_input = input("Enter number: ")
 format_exp = next(v for i, v in enumerate(EXPORT_FORMATS.keys()) if i == int(user_input))
 
+# EXPORT!!!!!!!!!!!!
 choose_export(format_exp).export(books[book], EXPORTED_FILES)
