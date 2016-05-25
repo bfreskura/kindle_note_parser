@@ -47,10 +47,14 @@ class ExportTex(Export):
                     file.write("\\begin{itemize}\n")
 
                     for highlight in book.highlights_list:
-                        print(highlight.content)
                         file.write("\\item {" + str(highlight.content) + "}\n")
 
                     file.write("\\end{itemize}\n")
 
                 else:
                     file.write(template)
+
+
+class ExportMarkdown(Export):
+    # TODO Implement
+    pass

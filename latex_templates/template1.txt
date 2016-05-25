@@ -30,6 +30,8 @@
 \subsection{Other people's reviews}
 \newpage
 
+\section{Book notes}
+
 # Notes_insertion
 
 \bibliographystyle{abbrv}
