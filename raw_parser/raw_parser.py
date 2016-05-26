@@ -50,37 +50,7 @@ class RawParser:
         """
         raise NotImplementedError
 
-
-class KindlePaperwhite5Parser(RawParser):
-    """
-    Parser implementation for Kindle Paperwhite 5.th generation
-    """
-
-    def parse_raw(self, filename):
-        with open(filename, 'r') as file:
-            # Load file into one string and replace the newline with dollars
-            # so it can be split later
-            input = file.read().replace('\n', '\n')
-
-        # This will split data by edits
-        lines = input.split("==========")
-
-        books_created = dict()
-        for i, edit in enumerate(lines):
-
-            # Split edit by new line
-            content = edit.split('\n')
-
-            # Check if this type of books exists
-            if content[1] not in books_created:
-                books_created[content[1]] = book.Book()
-                books_created[content[1]].book_name = content[1]
-
-            self.create_edit(meta=content[2], content=content[4], book=books_created[content[1]])
-
-        return books_created
-
-    def create_edit(self, meta, content, book):
+    def create_edit(self, book, meta, content):
         """
         Depending on the string, it will create appropriate
         EditType object and append to the list in the Book class object
@@ -91,6 +61,38 @@ class KindlePaperwhite5Parser(RawParser):
         :param meta Meta part of the string (string where location and date are located)
         :param content Actual content of the string (Note and highlight content)
         """
+        raise NotImplementedError
+
+
+class KindlePaperwhite5Parser(RawParser):
+    """
+    Parser implementation for Kindle Paperwhite 5.th generation
+    """
+
+    def parse_raw(self, filename):
+        with open(filename, 'r') as file:
+            # Read content into one string
+            data_raw = file.read()
+
+        # This will split the string by edits (Look at the raw format of the file)
+        lines = data_raw.split("==========")
+
+        books_created = {}
+        for i, edit in enumerate(lines):
+
+            # Split edit by new line
+            header, book_name, meta, blank, content, footer1 = edit.split('\n')
+
+            # Check if this type of books exists
+            if book_name not in books_created:
+                books_created[book_name] = book.Book()
+                books_created[book_name].book_name = book_name
+
+            self.create_edit(meta=meta, content=content, book=books_created[book_name])
+
+        return books_created
+
+    def create_edit(self, meta, content, book):
         meta_words = meta.split(" ")
         if meta_words[2].lower() == "bookmark":
             edit = edit_type.BookmarkType(bookmark_string=meta)

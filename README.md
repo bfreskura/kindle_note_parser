@@ -63,12 +63,17 @@ project. Run it with:
 python main.py [path_to_the_kindle_file]
 ```
 After you run it, it will scan the document and interactively ask you what data
-you would like to export, and in what format.
+you would like to export, and in which format.
 
 ### Template files
 Latex and Markdown format **must have their template files specified**. Template
-files must be inside the *templates* directory. Program will only ask you for
-the file name of the template, after which it will scan the templates directory
+files must be inside the *templates* directory.
+
+#### **Important**
+When creating your own templates, add **latex** or **markdown** keywords in the name of the template, or the template won't be
+recognised. This was added to prevent loading the wrong template format.
+
+Program will only ask you for the file name of the template, after which it will scan the *templates* directory
 for the given file name.
 
 ### Exported files

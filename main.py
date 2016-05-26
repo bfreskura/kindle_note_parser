@@ -19,8 +19,9 @@ def choose_export(export_index):
     if export_index == 0:
         # TEX
         template = input("Enter Latex Template name: ")
-        if not template:
-            template = "template_latex1.txt"
+        while template not in os.listdir(TEMPLATES) or "latex" not in template:
+            template = input("Templates does not exist or the wrong template format was given."
+                             " Please enter the template name again: ")
 
         return exporter.ExportTex(author_name=author,
                                   template_path=os.path.join(TEMPLATES, template))
@@ -28,8 +29,9 @@ def choose_export(export_index):
     elif export_index == 1:
         # Markdown
         template = input("Enter Markdown Template name: ")
-        if not template:
-            template = "template_markdown1.txt"
+        while template not in os.listdir(TEMPLATES) or "markdown" not in template:
+            template = input("Templates does not exist or the wrong template format was given."
+                             " Please enter the template name again: ")
 
         return exporter.ExportMarkdown(author_name=author,
                                        template_path=os.path.join(TEMPLATES, template))

@@ -58,7 +58,7 @@ class ExportTex(Export):
                 elif template.startswith("$"):
                     file.write("\\begin{itemize}\n")
 
-                    start, end = book.get_start_and_end_reading_dates()
+                    start, end = book.start_finish_reading_date()
                     file.write("\\item{Started reading book on: " + str(start.date()) + "}\n")
                     file.write("\\item{Finished reading book on: " + str(end.date()) + "}\n")
 
@@ -81,7 +81,7 @@ class ExportPlain(Export):
         self.author = author_name
 
     def export(self, book, folder_path):
-        start, end = book.get_start_and_end_reading_dates()
+        start, end = book.start_finish_reading_date()
 
         with open(os.path.join(folder_path, book.book_name + ".txt"), "w") as file:
             file.write("Book name: " + book.book_name + '\n\n')
@@ -112,7 +112,7 @@ class ExportMarkdown(Export):
             self.author = author_name
 
     def export(self, book, folder_path):
-        start, end = book.get_start_and_end_reading_dates()
+        start, end = book.start_finish_reading_date()
 
         with open(os.path.join(folder_path, book.book_name + ".md"), "w") as file:
 
