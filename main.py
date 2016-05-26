@@ -10,7 +10,7 @@ import collections
 
 def choose_export(export_index):
     """
-    Chooes export object based on the user input
+    Choose export object based on the user input
     :param export_index: Index which was input by user
     :return: Export object
     """
@@ -59,7 +59,7 @@ book = next(v for i, v in enumerate(books.keys()) if i == int(user_input))
 
 # Ask for export format
 print("Choose your export format\n")
-[print('{:5d}) {}'.format(index, format)) for index, format in enumerate(EXPORT_FORMATS.values())]
+[print('{:5d}) {}'.format(index, ex_format)) for index, ex_format in enumerate(EXPORT_FORMATS.values())]
 user_input = input("\nEnter number: ")
 
 # Check if range is ok

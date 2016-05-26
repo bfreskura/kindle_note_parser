@@ -50,8 +50,8 @@ class ExportTex(Export):
 
                     for highlight in book.highlights_list:
                         file.write(
-                            "\\item {" + escape_special(
-                                str(highlight.content)) + " (\\textit{Location " + highlight.location + "})}\n")
+                            "\\item {" + escape_special(string=str(highlight.content))
+                            + " (\\textit{Location " + highlight.location + "})}\n")
 
                     file.write("\\end{itemize}\n")
 
@@ -148,10 +148,11 @@ class ExportMarkdown(Export):
 
 def escape_special(string):
     """
-    Escape special characters in tex format
-    :return:
+    Escape special characters in TeX language.
+    Backslash is added to every special character
+    :return: String with escaped special characters
     """
-    replacement = {"{", "}", "$", "#"}
+    replacement = {"{", "}", "$", "#", "&", "_", "%"}
     for rep in replacement:
         string = string.replace(rep, "\\" + rep)
     return string

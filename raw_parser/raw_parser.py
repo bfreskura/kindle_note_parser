@@ -73,16 +73,10 @@ class KindlePaperwhite5Parser(RawParser):
 
             # Check if this type of books exists
             if content[1] not in books_created:
-                book_new = book.Book()
-                book_new.book_name = content[1]
-                self.create_edit(content[2], content[4], book_new)
-                # Save data to dictionary
-                books_created[content[1]] = book_new
-            else:
-                # Update book
-                book_old = books_created[content[1]]
-                self.create_edit(content[2], content[4], book_old)
-                books_created[content[1]] = book_old
+                books_created[content[1]] = book.Book()
+                books_created[content[1]].book_name = content[1]
+
+            self.create_edit(meta=content[2], content=content[4], book=books_created[content[1]])
 
         return books_created
 
@@ -99,16 +93,17 @@ class KindlePaperwhite5Parser(RawParser):
         """
         meta_words = meta.split(" ")
         if meta_words[2].lower() == "bookmark":
-            edit = edit_type.BookmarkType(meta)
+            edit = edit_type.BookmarkType(bookmark_string=meta)
             book.bookmarks_list.append(edit)
 
         elif meta_words[2].lower() == "highlight":
-            edit = edit_type.HighlightType(meta, content)
+            edit = edit_type.HighlightType(highlight_string=meta, content=content)
             book.highlights_list.append(edit)
 
-        elif meta_words[2].lower() == "note":
-            edit = edit_type.HighlightType(meta, content)
-            book.highlights_list.append(edit)
+        else:
+            # It's a note type
+            edit = edit_type.NoteType(edit_string=meta, content=content)
+            book.notes_list.append(edit)
 
 
 class RawParserContext:
@@ -116,4 +111,4 @@ class RawParserContext:
         self.strategy = parse_strategy
 
     def parse_raw(self, filename):
-        return self.strategy.parse_raw(filename)
+        return self.strategy.parse_raw(filename=filename)
