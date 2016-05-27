@@ -8,12 +8,6 @@ class EditType:
     Attributes which it must contain: Date and content
     """
 
-    def pretty_format(self):
-        """
-        Returns all information packed into a pretty format string
-        :return:
-        """
-
     def parse_edit_location(self, raw_data):
         """
         Parse edit Location or location range
@@ -40,9 +34,6 @@ class HighlightType(EditType):
         self.content = content
         self.date = self.parse_edit_date(highlight_string)
         self.location = self.parse_edit_location(highlight_string)
-
-    def pretty_format(self):
-        pass
 
     def parse_edit_date(self, data):
         """
@@ -79,9 +70,6 @@ class NoteType(EditType):
         self.date = self.parse_edit_date(edit_string)
         self.location = self.parse_edit_location(edit_string)
 
-    def pretty_format(self):
-        pass
-
     def parse_edit_date(self, data):
         """
         Example of input:
@@ -115,9 +103,6 @@ class BookmarkType(EditType):
     def __init__(self, bookmark_string):
         self.date = self.parse_edit_date(bookmark_string)
         self.location = self.parse_edit_location(bookmark_string)
-
-    def pretty_format(self):
-        pass
 
     def parse_edit_date(self, data):
         """

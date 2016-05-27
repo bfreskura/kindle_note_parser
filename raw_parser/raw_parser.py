@@ -70,6 +70,7 @@ class KindlePaperwhite5Parser(RawParser):
     """
 
     def parse_raw(self, filename):
+
         with open(filename, 'r') as file:
             # Read content into one string
             data_raw = file.read()
@@ -78,27 +79,25 @@ class KindlePaperwhite5Parser(RawParser):
         lines = data_raw.split("==========")
 
         books_created = {}
-        for i, edit in enumerate(lines):
-
+        for edit in lines:
             # Split edit by new line
             header, book_name, meta, blank, content, footer1 = edit.split('\n')
-
             # Check if this type of books exists
             if book_name not in books_created:
                 books_created[book_name] = book.Book()
                 books_created[book_name].book_name = book_name
 
             self.create_edit(meta=meta, content=content, book=books_created[book_name])
-
         return books_created
 
     def create_edit(self, meta, content, book):
-        meta_words = meta.split(" ")
-        if meta_words[2].lower() == "bookmark":
+        type_of_edit = meta.split(" ")[2]
+
+        if type_of_edit.lower() == "bookmark":
             edit = edit_type.BookmarkType(bookmark_string=meta)
             book.bookmarks_list.append(edit)
 
-        elif meta_words[2].lower() == "highlight":
+        elif type_of_edit.lower() == "highlight":
             edit = edit_type.HighlightType(highlight_string=meta, content=content)
             book.highlights_list.append(edit)
 

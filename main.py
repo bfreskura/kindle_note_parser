@@ -23,8 +23,7 @@ def choose_export(export_index):
             template = input("Templates does not exist or the wrong template format was given."
                              " Please enter the template name again: ")
 
-        return exporter.ExportTex(author_name=author,
-                                  template_path=os.path.join(TEMPLATES, template))
+        return exporter.ExportTex(author_name=author, template_path=os.path.join(TEMPLATES, template))
 
     elif export_index == 1:
         # Markdown
@@ -33,8 +32,8 @@ def choose_export(export_index):
             template = input("Templates does not exist or the wrong template format was given."
                              " Please enter the template name again: ")
 
-        return exporter.ExportMarkdown(author_name=author,
-                                       template_path=os.path.join(TEMPLATES, template))
+        return exporter.ExportMarkdown(author_name=author, template_path=os.path.join(TEMPLATES, template))
+
     else:
         # Plain Text
         return exporter.ExportPlain(author_name=author)
@@ -70,5 +69,6 @@ while int(user_input) < 0 or int(user_input) > len(EXPORT_FORMATS) - 1:
     user_input = input("Enter number: ")
 format_exp = next(v for i, v in enumerate(EXPORT_FORMATS.keys()) if i == int(user_input))
 
-# EXPORT!!!!!!!!!!!!
 choose_export(format_exp).export(books[book], EXPORTED_FILES)
+
+
