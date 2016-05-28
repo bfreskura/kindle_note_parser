@@ -39,36 +39,39 @@ def choose_export(export_index):
         return exporter.ExportPlain(author_name=author)
 
 
-parser = raw_parser.KindlePaperwhite5Parser()
-parser_context = raw_parser.RawParserContext(parser)
-parser = argparse.ArgumentParser()
+def main():
+    parser = raw_parser.KindlePaperwhite5Parser()
+    parser_context = raw_parser.RawParserContext(parser)
+    parser = argparse.ArgumentParser()
 
-parser.add_argument("input_log", help="Path of the file where kindle stores all notes, highlights and bookmarks")
-args = parser.parse_args()
-books = collections.OrderedDict(sorted(parser_context.parse_raw(args.input_log).items()))
+    parser.add_argument("input_log", help="Path of the file where kindle stores all notes, highlights and bookmarks")
+    args = parser.parse_args()
+    books = collections.OrderedDict(sorted(parser_context.parse_raw(args.input_log).items()))
 
-# List all books
-print("Enter one number from the list:\n")
-[print('{:5d}) {}'.format(index, name)) for index, name in enumerate(books)]
-user_input = input("\nEnter number: ")
+    # List all books
+    print("Enter one number from the list:\n")
+    [print('{:5d}) {}'.format(index, name)) for index, name in enumerate(books)]
+    user_input = input("\nEnter number: ")
 
-# Check if range is ok
-while int(user_input) < 0 or int(user_input) > len(books) - 1:
-    print("Invalid number given.")
-    user_input = input("Enter number: ")
-book = next(v for i, v in enumerate(books.keys()) if i == int(user_input))
+    # Check if range is ok
+    while int(user_input) < 0 or int(user_input) > len(books) - 1:
+        print("Invalid number given.")
+        user_input = input("Enter number: ")
+    book = next(v for i, v in enumerate(books.keys()) if i == int(user_input))
 
-# Ask for export format
-print("Choose your export format\n")
-[print('{:5d}) {}'.format(index, ex_format)) for index, ex_format in enumerate(EXPORT_FORMATS.values())]
-user_input = input("\nEnter number: ")
+    # Ask for export format
+    print("Choose your export format\n")
+    [print('{:5d}) {}'.format(index, ex_format)) for index, ex_format in enumerate(EXPORT_FORMATS.values())]
+    user_input = input("\nEnter number: ")
 
-# Check if range is ok
-while int(user_input) < 0 or int(user_input) > len(EXPORT_FORMATS) - 1:
-    print("Invalid number given.")
-    user_input = input("Enter number: ")
-format_exp = next(v for i, v in enumerate(EXPORT_FORMATS.keys()) if i == int(user_input))
+    # Check if range is ok
+    while int(user_input) < 0 or int(user_input) > len(EXPORT_FORMATS) - 1:
+        print("Invalid number given.")
+        user_input = input("Enter number: ")
+    format_exp = next(v for i, v in enumerate(EXPORT_FORMATS.keys()) if i == int(user_input))
 
-choose_export(format_exp).export(books[book], EXPORTED_FILES)
+    choose_export(format_exp).export(books[book], EXPORTED_FILES)
 
 
+if __name__ == "__main__":
+    main()
