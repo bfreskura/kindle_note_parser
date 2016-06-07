@@ -1,43 +1,5 @@
 from model import book, edit_type
 
-"""
-Parses raw kindle highlights document
-
-Example of the document:
-
-The 5 Elements of Effective Thinking (Burger, Edward B.;Starbird, Michael)
-- Your Bookmark on Location 111 | Added on Monday, August 10, 2015 7:26:42 PM
-
-
-==========
-﻿The Intelligent Investor, Rev. Ed (Graham, Benjamin;Jason Zweig;Warren E. Buffett)
-- Your Bookmark on Location 6152 | Added on Monday, August 10, 2015 8:06:01 PM
-
-
-==========
-﻿The 5 Elements of Effective Thinking (Burger, Edward B.;Starbird, Michael)
-- Your Bookmark on Location 289 | Added on Tuesday, August 11, 2015 4:49:23 PM
-
-
-==========
-﻿The 5 Elements of Effective Thinking (Burger, Edward B.;Starbird, Michael)
-- Your Bookmark on Location 607 | Added on Tuesday, August 11, 2015 5:19:06 PM
-
-
-==========
-The 5 Elements of Effective Thinking (Burger, Edward B.;Starbird, Michael)
-- Your Highlight on Location 718-718 | Added on Wednesday, August 12, 2015 7:17:46 AM
-
-perspiration, the perspiration was the process of incrementally
-==========
-The 5 Elements of Effective Thinking (Burger, Edward B.;Starbird, Michael)
-- Your Bookmark on Location 897 | Added on Wednesday, August 12, 2015 7:33:04 AM
-
-
-
-Notice that you have to add a blank line to the start of document
-"""
-
 
 class RawParser:
     def parse_raw(self, filename):
@@ -71,17 +33,22 @@ class KindlePaperwhite5Parser(RawParser):
 
     def parse_raw(self, filename):
 
-        with open(filename, 'r') as file:
+        with open(filename, 'r', encoding='utf-8') as file:
             # Read content into one string
             data_raw = file.read()
 
         # This will split the string by edits (Look at the raw format of the file)
-        lines = data_raw.split("==========")
+        # Last string is deleted  because there is no content after the last
+        # ====== in the file.
+        lines = data_raw.split("==========")[0:-1]
+        # Append new line so all lines have \n at the beginning
+        lines[0] = "\n" + lines[0]
 
         books_created = {}
         for edit in lines:
             # Split edit by new line
             header, book_name, meta, blank, content, footer1 = edit.split('\n')
+            book_name = book_name.replace(u'\ufeff', '')
             # Check if this type of books exists
             if book_name not in books_created:
                 books_created[book_name] = book.Book()

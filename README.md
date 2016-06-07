@@ -39,11 +39,10 @@ perspiration, the perspiration was the process of incrementally
 ==========
 The 5 Elements of Effective Thinking (Burger, Edward B.;Starbird, Michael)
 - Your Bookmark on Location 897 | Added on Wednesday, August 12, 2015 7:33:04 AM
-```
 
-### Structure of the Kindle file
-Pay attention to the beginning, and the end of the file. Number of empty rows
-must be equal. Take a look at the *raw/my_clippings.txt* example.
+
+==========
+```
 
 ## Which export formats does it support?
 1. Tex (Latex)
