@@ -48,6 +48,7 @@ class KindlePaperwhite5Parser(RawParser):
         for edit in lines:
             # Split edit by new line
             header, book_name, meta, blank, content, footer1 = edit.split('\n')
+            # Remove Byte Order Mark (BOM) code
             book_name = book_name.replace(u'\ufeff', '')
             # Check if this type of books exists
             if book_name not in books_created:
