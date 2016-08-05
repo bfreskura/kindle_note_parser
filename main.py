@@ -1,11 +1,11 @@
 # Main program
 
 import argparse
-import os
-from raw_parser import raw_parser
+import collections
+
 from constants import *
 from export import exporter
-import collections
+from raw_parser import raw_parser
 
 
 def choose_export(export_index):
@@ -47,27 +47,7 @@ def choose_export(export_index):
         return exporter.ExportPlain(author_name=author)
 
 
-def main():
-    parser = raw_parser.KindlePaperwhite5Parser()
-    parser_context = raw_parser.RawParserContext(parser)
-    parser = argparse.ArgumentParser()
-
-    parser.add_argument("input_log",
-                        help="Path of the file where kindle stores all notes, highlights and bookmarks")
-    args = parser.parse_args()
-    books = collections.OrderedDict(
-        sorted(parser_context.parse_raw(args.input_log).items()))
-
-    # List all books
-    print("Enter one or more numbers from the list\n")
-    [print('{:5d}) {}'.format(index, name)) for index, name in enumerate(books)]
-    user_input = input(PROMPT_BOOK_LIST)
-
-    for book_index in user_input.split(" "):
-        extract(book_index, books)
-
-
-def extract(book_index, books):
+def extract(book_index, books, export_dir):
     """
     Extracts book info
     :param book_index: Book index (If the index is invalid, it will be skipped)
@@ -100,8 +80,35 @@ def extract(book_index, books):
     format_exp = next(
         v for i, v in enumerate(EXPORT_FORMATS.keys()) if i == int(user_input))
 
-    choose_export(format_exp).export(books[book_name], EXPORTED_FILES)
+    choose_export(format_exp).export(books[book_name], export_dir)
     print()
+
+
+def main():
+    parser = raw_parser.KindlePaperwhite5Parser()
+    parser_context = raw_parser.RawParserContext(parser)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("input_log",
+                        help="Path of the file where kindle stores all notes,"
+                             " highlights and bookmarks")
+    parser.add_argument("output_dir", default=EXPORTED_FILES, nargs='?',
+                        help="Export directory")
+    args = parser.parse_args()
+
+    if not os.path.exists(args.output_dir):
+        print("Output directory is invalid")
+        return
+
+    books = collections.OrderedDict(
+        sorted(parser_context.parse_raw(args.input_log).items()))
+
+    # List all books
+    print("Enter one or more numbers from the list\n")
+    [print('{:5d}) {}'.format(index, name)) for index, name in enumerate(books)]
+    user_input = input(PROMPT_BOOK_LIST)
+
+    for book_index in user_input.split(" "):
+        extract(book_index, books, args.output_dir)
 
 
 if __name__ == "__main__":
