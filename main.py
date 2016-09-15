@@ -88,11 +88,12 @@ def main():
     parser = raw_parser.KindlePaperwhite5Parser()
     parser_context = raw_parser.RawParserContext(parser)
     parser = argparse.ArgumentParser()
-    parser.add_argument("input_log",
+    parser.add_argument("--input-log",
                         help="Path of the file where kindle stores all notes,"
-                             " highlights and bookmarks")
-    parser.add_argument("output_dir", default=EXPORTED_FILES, nargs='?',
-                        help="Export directory")
+                             " highlights and bookmarks", type=str,
+                        required=True)
+    parser.add_argument("--output-dir", type=str, help="Export directory",
+                        required=True)
     args = parser.parse_args()
 
     if not os.path.exists(args.output_dir):
