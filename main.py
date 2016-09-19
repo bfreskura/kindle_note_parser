@@ -122,7 +122,7 @@ def main():
                         required=True)
     parser.add_argument("--templates-dir",
                         help="Export format template file", type=str,
-                        required=False, default=TEMPLATES)
+                        required=True)
     parser.add_argument("--output-dir", type=str, help="Export directory",
                         required=True)
     args = parser.parse_args()
