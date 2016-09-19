@@ -78,6 +78,9 @@ of the template file name, or the template won't be recognised.
 Start and finish day of reading are dates when the first and the last
 bookmarks in the book were made.
 
+### Examples
+You can see some of the exported examples in the *examples* directory.
+
 ## Requirements
 The only requirements is Python3 (this was tested on Python 3.5.2)
 
@@ -85,3 +88,4 @@ The only requirements is Python3 (this was tested on Python 3.5.2)
 The script was tested on Kindle Paperwhite generation 5. I don't know how other versions of Kindle 
 devices save this sort of data (I assume it's not very different from this one), but feel free to
 email me if you find some differences on other Kindle devices.
+
