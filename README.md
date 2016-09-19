@@ -7,7 +7,7 @@ and notes from the given book file to the desired output format.
 Every note, highlight and bookmark are saved locally to your Kindle device in a
 file named *My Clippings.txt*, or something similar. That file has a specific
 format which enables easy parsing of desired data. Script will take this file,
-parse it, and output data the one of the supported output formats.
+parse it, and output data in one of the supported output formats.
 
 *My Clippings.txt* should something likes this:
 ```
@@ -50,7 +50,7 @@ The 5 Elements of Effective Thinking (Burger, Edward B.;Starbird, Michael)
 easily converted to a PDF file.
 
 2. Markdown
-  * Given template it will fill the template with given data from the book.
+  * Given template .md file, it will fill the template with given data from the book.
 
 3. Plain Text
   * Exports in plain .txt format.
@@ -59,7 +59,7 @@ easily converted to a PDF file.
 After you clone the repo, you will see *main.py* script in the root of the
 project. Run it with:
 ```
-python main.py [path_to_the_kindle_file]
+python3 main.py --input-log [/My/Clippings/path] --output-dir [/export/directory] --templates-dir [/templates/directory]
 ```
 After you run it, it will scan the document and interactively ask you what data
 you would like to export, and in which format.
