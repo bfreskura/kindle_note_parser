@@ -28,9 +28,9 @@ def choose_template(template_dir, extension):
     selection = ""
     while selection not in list(available.keys()):
         try:
-            selection = int(input("Choose format index: "))
+            selection = int(input("Choose format index from the list: "))
         except ValueError:
-            print("Please enter valid integer format.")
+            print("Please enter valid integer format from the list.")
     return os.path.join(template_dir, available[selection])
 
 
@@ -73,10 +73,10 @@ def extract(book_index, books, export_dir, templates_dir):
     # Validate index
     try:
         if book_index > len(books) - 1:
-            print("WARNING: index '" + book_index + "' is out of range.")
+            print("WARNING: index '" + str(book_index) + "' is out of range.")
             return
     except ValueError:
-        print("WARNING: index '" + book_index + "' is not valid.")
+        print("WARNING: index '" + str(book_index) + "' is not valid.")
         return
 
     selected_book_name, selected_book_iterator = list(books.items())[book_index]
@@ -86,12 +86,12 @@ def extract(book_index, books, export_dir, templates_dir):
     print("Choose your export format\n")
     [print('{:5d}) {}'.format(index, ex_format)) for index, ex_format in
      enumerate(EXPORT_FORMATS.values())]
-    user_input = int(input(PROMPT_NUMBER))
+    user_input = int(input("Enter number from the list: "))
 
     # Check if range is ok
     while user_input not in range(len(EXPORT_FORMATS)):
         print("Invalid number given. Try again.")
-        user_input = int(input(PROMPT_NUMBER))
+        user_input = int(input("Enter number from the list: "))
     format_exp = list(EXPORT_FORMATS.items())[user_input][0]
 
     choose_export(format_exp, templates_dir).export(selected_book_iterator,
@@ -116,7 +116,7 @@ def main():
     parser = raw_parser.KindlePaperwhite5Parser()
     parser_context = raw_parser.RawParserContext(parser)
     parser = argparse.ArgumentParser()
-    parser.add_argument("-i","--input-log",
+    parser.add_argument("-i", "--input-log",
                         help="Path of the file where kindle stores all notes,"
                              " highlights and bookmarks", type=str,
                         required=True)
@@ -137,10 +137,18 @@ def main():
     # List all books
     print("Enter one or more numbers from the list\n")
     [print('{:5d}) {}'.format(index, name)) for index, name in enumerate(books)]
-    user_input = input(PROMPT_BOOK_LIST)
 
-    for book_index in user_input.split(" "):
-        extract(int(book_index), books, args.output_dir, args.templates_dir)
+    while True:
+        try:
+            user_input = set([int(item) for item in
+                              input("\nEnter number(s) separated by a SINGLE "
+                                    "space: ").strip().split(" ")])
+            break
+        except ValueError:
+            print("Invalid input. Please select a number(s) from the list.")
+
+    for book_index in user_input:
+        extract(book_index, books, args.output_dir, args.templates_dir)
 
 
 if __name__ == "__main__":
