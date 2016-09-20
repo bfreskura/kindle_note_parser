@@ -107,7 +107,7 @@ def check_path_exists(dir_list):
     """
     for dir in dir_list:
         if not os.path.exists(dir):
-            print(dir + " directory is invalid")
+            print(dir + " path is invalid.")
             return False
     return True
 
@@ -116,14 +116,15 @@ def main():
     parser = raw_parser.KindlePaperwhite5Parser()
     parser_context = raw_parser.RawParserContext(parser)
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input-log",
+    parser.add_argument("-i","--input-log",
                         help="Path of the file where kindle stores all notes,"
                              " highlights and bookmarks", type=str,
                         required=True)
-    parser.add_argument("--templates-dir",
-                        help="Export format template file", type=str,
+    parser.add_argument("-t", "--templates-dir",
+                        help="Templates directory path (you can use the"
+                             " templates/ in this repo)", type=str,
                         required=True)
-    parser.add_argument("--output-dir", type=str, help="Export directory",
+    parser.add_argument("-o", "--output-dir", type=str, help="Export directory",
                         required=True)
     args = parser.parse_args()
     if not check_path_exists(

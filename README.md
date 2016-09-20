@@ -1,15 +1,15 @@
 # Kindle Data Exporter
 
-## What is this sorcery???
+## What is this sorcery?
 It's a small script written in Python which exports highlights, bookmarks
 and notes from the given book file to the desired output format.
 
-Every note, highlight and bookmark are saved locally to your Kindle device in a
+Every note, highlight and bookmark is saved locally to your Kindle device in a
 file named *My Clippings.txt*, or something similar. That file has a specific
 format which enables easy parsing of desired data. Script will take this file,
 parse it, and output data in one of the supported output formats.
 
-*My Clippings.txt* look something likes this:
+*My Clippings.txt* looks something likes this:
 ```
 
 The 5 Elements of Effective Thinking (Burger, Edward B.;Starbird, Michael)
@@ -45,9 +45,10 @@ The 5 Elements of Effective Thinking (Burger, Edward B.;Starbird, Michael)
 ```
 
 ## Which export formats does it support?
-1. Tex (Latex)
+1. TeX (LaTeX)
   * Given *.tex* template file, it will export data in the latex file which can be
 easily converted to a PDF file.
+ * For converting *tex* to *PDF* take a look at [this](https://en.wikibooks.org/wiki/LaTeX/Export_To_Other_Formats#Convert_to_PDF)
 
 2. Markdown
   * Given *.md* template file, it will fill the template with given data from the book.
@@ -56,13 +57,15 @@ easily converted to a PDF file.
   * Exports in plain *.txt* format.
 
 ## How to use
-After you clone the repo, you will see *main.py* script in the root of the
+After you clone the repository, you will see *export.py* script in the root of the
 project. Run it with:
 ```
-python3 main.py --input-log [/My/Clippings/path] --output-dir [/export/directory] --templates-dir [templates/]
+python3 export.py --input-log [/My/Clippings/path] --output-dir [/export/directory] --templates-dir [templates/]
 ```
 After you run it, it will scan the document and interactively ask you what data
-you would like to export, and in which format.
+you would like to export and in which format.
+
+You can run ``` python3 export.py -h``` to show the help menu.
 
 ### Template files
 You have to set the templates folder directory when running the script. You can
@@ -82,10 +85,12 @@ bookmarks in the book were made.
 You can see some of the exported examples in the *examples* directory.
 
 ## Requirements
-The only requirements is Python3 (this was tested on Python 3.5.2)
+The only requirements is Python3 (tested on Python 3.5.2)
 
 ## Versions of Kindle devices supported
 The script was tested on Kindle Paperwhite generation 5. I don't know how other versions of Kindle 
 devices save this sort of data (I assume it's not very different from this one), but feel free to
 email me if you find some differences on other Kindle devices.
 
+## Author
+[Bartol Freškura](https://hr.linkedin.com/in/bfreskura)
