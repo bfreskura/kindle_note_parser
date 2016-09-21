@@ -1,15 +1,15 @@
 # Kindle Data Exporter
 
-## What is this sorcery???
+## What is this sorcery?
 It's a small script written in Python which exports highlights, bookmarks
 and notes from the given book file to the desired output format.
 
-Every note, highlight and bookmark are saved locally to your Kindle device in a
+Every note, highlight, and a bookmark are saved locally to your Kindle device in a
 file named *My Clippings.txt*, or something similar. That file has a specific
-format which enables easy parsing of desired data. Script will take this file,
-parse it, and output data the one of the supported output formats.
+format which enables easy parsing of desired data. The Script will take this file,
+parse it, and output data in one of the supported output formats.
 
-*My Clippings.txt* should something likes this:
+*My Clippings.txt* looks something likes this:
 ```
 
 The 5 Elements of Effective Thinking (Burger, Edward B.;Starbird, Michael)
@@ -45,48 +45,59 @@ The 5 Elements of Effective Thinking (Burger, Edward B.;Starbird, Michael)
 ```
 
 ## Which export formats does it support?
-1. Tex (Latex)
-  * Given template .tex file, it will export data in the latex file which can be
+1. TeX (LaTeX)
+* Given *.tex* template file, it will export data in the latex file which can be
 easily converted to a PDF file.
+* For converting *tex* to *PDF* take a look at [this](https://en.wikibooks.org/wiki/LaTeX/Export_To_Other_Formats#Convert_to_PDF)
 
 2. Markdown
-  * Given template it will fill the template with given data from the book.
+* Given *.md* template file, it will fill the template with given data from the book.
 
 3. Plain Text
-  * Exports in plain .txt format.
+* Exports in plain *.txt* format.
+
+
+## How to extract *My Clippings.txt* file from a Kindle (Paperwhite gen. V.) device
+1. Plug your Kindle into the computer
+2. Open mounted Kindle directory and navigate to *documents* folder
+3. *My Clippings.txt* should be there, just copy it somewhere on your computer
+and run the script
 
 ## How to use
-After you clone the repo, you will see *main.py* script in the root of the
+After you clone the repository, you will see the *export.py* script in the root of the
 project. Run it with:
 ```
-python main.py [path_to_the_kindle_file]
+python3 export.py --input-log [/My/Clippings/path] --output-dir [/export/directory] --templates-dir [templates/]
 ```
 After you run it, it will scan the document and interactively ask you what data
-you would like to export, and in which format.
+you would like to export and in which format.
+
+You can run ``` python3 export.py -h``` to show the help menu.
 
 ### Template files
-Latex and Markdown format **must have their template files specified**. Template
-files must be inside the *templates* directory.
+You have to set the templates folder directory when running the script. You can
+take a look at example templates in the *templates* directory if you wish to
+create your own templates. You **DO NOT** need a template file when using the **plain
+text** format.
 
 #### **Important**
-When creating your own templates, add **latex** or **markdown** keywords in the name of the template, or the template won't be
-recognised. This was added to prevent loading the wrong template format.
-
-Program will only ask you for the file name of the template, after which it will scan the *templates* directory
-for the given file name.
-
-### Exported files
-After the program has finished, exported files will be located in the
-*exported_files* directory.
+When creating your own templates, add **.tex**/**.md**/**.txt** extensions at the end
+of the template file name or the template won't be recognised.
 
 ### Dates
-Start and finish day of reading are dates when the first and the last
+The start and the finish date of reading are dates when the first and the last
 bookmarks in the book were made.
 
+### Examples
+You can see some of the exported examples in the *examples* directory.
+
 ## Requirements
-The only requirements is Python3 (this was tested on Python 3.5.0)
+The only requirement is Python3 (tested on Python 3.5.2)
 
 ## Versions of Kindle devices supported
 The script was tested on Kindle Paperwhite generation 5. I don't know how other versions of Kindle 
 devices save this sort of data (I assume it's not very different from this one), but feel free to
-email me if you find some differences on other Kindle devices.
+open a bug issue you find some differences on other Kindle devices.
+
+## Author
+[Bartol Freškura](https://hr.linkedin.com/in/bfreskura)

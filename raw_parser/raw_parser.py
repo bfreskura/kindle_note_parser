@@ -19,7 +19,7 @@ class RawParser:
 
         content param will be an empty string for bookmarks
 
-        :param book: Book object
+        :param book: Book class object
         :param meta Meta part of the string (string where location and date are located)
         :param content Actual content of the string (Note and highlight content)
         """
@@ -55,7 +55,8 @@ class KindlePaperwhite5Parser(RawParser):
                 books_created[book_name] = book.Book()
                 books_created[book_name].book_name = book_name
 
-            self.create_edit(meta=meta, content=content, book=books_created[book_name])
+            self.create_edit(meta=meta, content=content,
+                             book=books_created[book_name])
         return books_created
 
     def create_edit(self, meta, content, book):
@@ -66,7 +67,8 @@ class KindlePaperwhite5Parser(RawParser):
             book.bookmarks_list.append(edit)
 
         elif type_of_edit.lower() == "highlight":
-            edit = edit_type.HighlightType(highlight_string=meta, content=content)
+            edit = edit_type.HighlightType(highlight_string=meta,
+                                           content=content)
             book.highlights_list.append(edit)
 
         else:

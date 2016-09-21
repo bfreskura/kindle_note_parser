@@ -1,14 +1,6 @@
 # Raw text data
 raw/*
 
-*.tex
-*.aux
-*.log
-*.pdf
-*.md
-*.toc
-*.out
-exported_files/*.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

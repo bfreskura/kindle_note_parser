@@ -1,4 +1,5 @@
 import os
+import re
 
 
 class Export:
@@ -10,6 +11,15 @@ class Export:
         :return:
         """
         raise NotImplementedError
+
+    def format_filename(self, name):
+        """
+
+        :param name:
+        :return:
+
+        """
+        return re.sub('[^a-zA-Z0-9 \n\.]', '', name).lower().replace(" ", "_")
 
 
 class ExportTex(Export):
@@ -29,7 +39,8 @@ class ExportTex(Export):
 
     def export(self, book, folder_path):
 
-        with open(os.path.join(folder_path, book.book_name + ".tex"), "w") as file:
+        with open(os.path.join(folder_path, self.format_filename(book.book_name)
+                + ".tex"), "w") as file:
 
             for index, template in enumerate(self.template):
                 if "book_title" in template:
@@ -50,7 +61,8 @@ class ExportTex(Export):
 
                     for highlight in book.highlights_list:
                         file.write(
-                            "\\item {" + escape_special(string=str(highlight.content))
+                            "\\item {" + escape_special(
+                                string=str(highlight.content))
                             + " (\\textit{Location " + highlight.location + "})}\n")
 
                     file.write("\\end{itemize}\n")
@@ -59,8 +71,10 @@ class ExportTex(Export):
                     file.write("\\begin{itemize}\n")
 
                     start, end = book.start_finish_reading_date()
-                    file.write("\\item{Started reading book on: " + str(start.date()) + "}\n")
-                    file.write("\\item{Finished reading book on: " + str(end.date()) + "}\n")
+                    file.write("\\item{Started reading book on: " + str(
+                        start.date()) + "}\n")
+                    file.write("\\item{Finished reading book on: " + str(
+                        end.date()) + "}\n")
 
                     file.write("\\end{itemize}\n")
 
@@ -83,7 +97,9 @@ class ExportPlain(Export):
     def export(self, book, folder_path):
         start, end = book.start_finish_reading_date()
 
-        with open(os.path.join(folder_path, book.book_name + ".txt"), "w") as file:
+        with open(os.path.join(folder_path,
+                               self.format_filename(book.book_name) + ".txt"),
+                  "w") as file:
             file.write("Book name: " + book.book_name + '\n\n')
 
             file.write("Notes Author: " + self.author + '\n\n')
@@ -93,7 +109,9 @@ class ExportPlain(Export):
             file.write("Book notes\n\n")
 
             for highlight in book.highlights_list:
-                file.write("- " + highlight.content + " Location (" + highlight.location + ")\n")
+                file.write(
+                    "- " + highlight.content + " Location (" +
+                    highlight.location + ")\n")
 
 
 class ExportMarkdown(Export):
@@ -105,7 +123,8 @@ class ExportMarkdown(Export):
         """
         Creates list of lines from the template file
         :param template_path: Path to the .md template file
-        :param author_name: Name of the author which will be written on the document (NOT NAME OF THE BOOK'S AUTHOR)
+        :param author_name: Name of the author which will be written on the
+        document (NOT NAME OF THE BOOK'S AUTHOR)
         """
         with open(template_path, 'r') as file:
             self.template = file.readlines()
@@ -114,7 +133,8 @@ class ExportMarkdown(Export):
     def export(self, book, folder_path):
         start, end = book.start_finish_reading_date()
 
-        with open(os.path.join(folder_path, book.book_name + ".md"), "w") as file:
+        with open(os.path.join(folder_path, self.format_filename(book.book_name)
+                + ".md"), "w") as file:
 
             for index, template in enumerate(self.template):
                 if "book_title" in template:
@@ -132,7 +152,8 @@ class ExportMarkdown(Export):
                         continue
 
                     for highlight in book.highlights_list:
-                        file.write("* " + highlight.content + "*Location (+" + highlight.location + ')*\n')
+                        file.write(
+                            "* " + highlight.content + "*Location (+" + highlight.location + ')*\n')
 
                 elif "date_start" in template:
                     template = template.replace("date_start", str(start.date()))
