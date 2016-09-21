@@ -46,15 +46,15 @@ The 5 Elements of Effective Thinking (Burger, Edward B.;Starbird, Michael)
 
 ## Which export formats does it support?
 1. TeX (LaTeX)
-* Given *.tex* template file, it will export data in the latex file which can be
-easily converted to a PDF file.
-* For converting *tex* to *PDF* take a look at [this](https://en.wikibooks.org/wiki/LaTeX/Export_To_Other_Formats#Convert_to_PDF)
+  * Given *.tex* template file, it will export data in the latex file which can be
+  easily converted to a PDF file.
+  * For converting *tex* to *PDF* take a look at [this](https://en.wikibooks.org/wiki/LaTeX/Export_To_Other_Formats#Convert_to_PDF)
 
 2. Markdown
-* Given *.md* template file, it will fill the template with given data from the book.
+  * Given *.md* template file, it will fill the template with given data from the book.
 
 3. Plain Text
-* Exports in plain *.txt* format.
+  * Exports in plain *.txt* format.
 
 
 ## How to extract *My Clippings.txt* file from a Kindle (Paperwhite gen. V.) device
@@ -95,7 +95,7 @@ You can see some of the exported examples in the *examples* directory.
 The only requirement is Python3 (tested on Python 3.5.2)
 
 ## Versions of Kindle devices supported
-The script was tested on Kindle Paperwhite generation 5. I don't know how other versions of Kindle 
+The script was tested on Kindle Paperwhite generation 5. I don't know how other versions of Kindle
 devices save this sort of data (I assume it's not very different from this one), but feel free to
 open a bug issue you find some differences on other Kindle devices.
 
