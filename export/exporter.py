@@ -152,8 +152,8 @@ class ExportMarkdown(Export):
                         continue
 
                     for highlight in book.highlights_list:
-                        file.write(
-                            "* " + highlight.content + "*Location (+" + highlight.location + ')*\n')
+                        file.write("* " + highlight.content + "*Location (" +
+                                   highlight.location + ")*\n")
 
                 elif "date_start" in template:
                     template = template.replace("date_start", str(start.date()))
