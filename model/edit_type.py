@@ -56,7 +56,7 @@ class HighlightType(EditType):
         """
         loc_split = data.split("|")
         if len(loc_split) > 2:
-            return loc_split[1].rstrip().lstrip()
+            return loc_split[1].rstrip().lstrip().split(" ")[-1]
         else:
             return loc_split[0].split(" ")[5]
 
@@ -95,7 +95,7 @@ class NoteType(EditType):
         """
         loc_split = data.split("|")
         if len(loc_split) > 2:
-            return loc_split[1].rstrip().lstrip()
+            return loc_split[1].rstrip().lstrip().split(" ")[-1]
         else:
             return loc_split[0].split(" ")[5]
 
@@ -133,6 +133,6 @@ class BookmarkType(EditType):
         """
         loc_split = data.split("|")
         if len(loc_split) > 2:
-            return loc_split[1].rstrip().lstrip()
+            return loc_split[1].rstrip().lstrip().split(" ")[-1]
         else:
             return loc_split[0].split(" ")[5]
