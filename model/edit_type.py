@@ -44,7 +44,7 @@ class HighlightType(EditType):
         :return:
         """
         date_part = data.split("|")
-        return datetime.strptime(date_part[1], " Added on %A, %B %d, %Y %I:%M:%S %p")
+        return datetime.strptime(date_part[-1], " Added on %A, %B %d, %Y %I:%M:%S %p")
 
     def parse_edit_location(self, data):
         """
@@ -54,7 +54,11 @@ class HighlightType(EditType):
         :param data:
         :return:
         """
-        return data.split("|")[0].split(" ")[5]
+        loc_split = data.split("|")
+        if len(loc_split) > 2:
+            return loc_split[1].rstrip().lstrip()
+        else:
+            return loc_split[0].split(" ")[5]
 
 
 class NoteType(EditType):
@@ -79,7 +83,7 @@ class NoteType(EditType):
         :return:
         """
         date_part = data.split("|")
-        return datetime.strptime(date_part[1], " Added on %A, %B %d, %Y %I:%M:%S %p")
+        return datetime.strptime(date_part[-1], " Added on %A, %B %d, %Y %I:%M:%S %p")
 
     def parse_edit_location(self, data):
         """
@@ -89,7 +93,11 @@ class NoteType(EditType):
         :param data:
         :return:
         """
-        return data.split("|")[0].split(" ")[5]
+        loc_split = data.split("|")
+        if len(loc_split) > 2:
+            return loc_split[1].rstrip().lstrip()
+        else:
+            return loc_split[0].split(" ")[5]
 
 
 class BookmarkType(EditType):
@@ -113,7 +121,7 @@ class BookmarkType(EditType):
         :return:
         """
         date_part = data.split("|")
-        return datetime.strptime(date_part[1], " Added on %A, %B %d, %Y %I:%M:%S %p")
+        return datetime.strptime(date_part[-1], " Added on %A, %B %d, %Y %I:%M:%S %p")
 
     def parse_edit_location(self, data):
         """
@@ -123,4 +131,8 @@ class BookmarkType(EditType):
         :param data:
         :return:
         """
-        return data.split("|")[0].split(" ")[5]
+        loc_split = data.split("|")
+        if len(loc_split) > 2:
+            return loc_split[1].rstrip().lstrip()
+        else:
+            return loc_split[0].split(" ")[5]
