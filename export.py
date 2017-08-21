@@ -121,9 +121,9 @@ def main():
                              " highlights and bookmarks", type=str,
                         required=True)
     parser.add_argument("-t", "--templates-dir",
-                        help="Templates directory path (you can use the"
-                             " templates/ in this repo)", type=str,
-                        required=True)
+                        help="Templates directory path (see examples in the"
+                             " templates/ directory)", type=str,
+                        default=TEMPLATES_DIR)
     parser.add_argument("-o", "--output-dir", type=str, help="Export directory",
                         required=True)
     args = parser.parse_args()
